@@ -1,39 +1,40 @@
 # antitransformer
 
-AI text detection engine for the NexVigilant Core kernel. It identifies transformer-generated content through a multi-feature statistical fingerprinting process, analyzing linguistic patterns that deviate from natural human variance.
+Part of the [NexVigilant](https://nexvigilant.com) pharmacovigilance platform.
 
-## Intent
-To provide a non-semantic, statistical layer of defense against machine-generated misinformation or automated "hallucinations." It ensures that safety-critical reports or code comments have the expected high-entropy characteristics of expert human input.
+## About NexVigilant
 
-## T1 Grounding (Lex Primitiva)
-Dominant Primitives:
-- **ν (Frequency)**: Primary for analyzing word frequency distributions and perplexity.
-- **κ (Comparison)**: Compares observed statistical features against a validated human baseline.
-- **Σ (Sum)**: Aggregates the five core features into a weighted probability score.
-- **∂ (Boundary)**: Defines the classification boundaries (Human, Generated, or insufficient_data for texts under 10 tokens).
+NexVigilant makes pharmacovigilance accessible. We build open computation tools for drug safety signal detection, causality assessment, and regulatory intelligence — because patient safety knowledge should be available to everyone willing to learn.
 
-## The 5 Statistical Features
-1. **Zipf's Law Deviation**: Detects suspiciously smooth power-law distributions.
-2. **Entropy Uniformity**: Identifies consistent information density (a hallmark of AI).
-3. **Burstiness Dampening**: Flags the loss of natural word-clustering "bursts."
-4. **Perplexity Consistency**: Detects uniform "surprise" levels across text segments.
-5. **TTR Anomaly**: Measures type-token ratio deviations from human norms.
+**Live tools:** [mcp.nexvigilant.com](https://mcp.nexvigilant.com) — 193 MCP tools for AI-powered pharmacovigilance, free to connect.
 
-## SOPs for Use
-### Analyzing Text
-```rust
-use antitransformer::pipeline::{analyze, AnalysisConfig};
+## Installation
 
-let config = AnalysisConfig::default();
-let result = analyze("Sample text to evaluate...", &config);
-
-if result.verdict == "generated" {
-    println!("High probability of AI generation detected: {:.2}%", result.probability * 100.0);
-}
+```toml
+[dependencies]
+antitransformer = { git = "https://github.com/nexvigilant/antitransformer" }
 ```
 
-### Aggregating Results
-Use the `aggregation` module to combine multiple analyses into a single session-level fingerprint.
+> **Note:** This crate was developed as part of the [nexcore](https://github.com/nexvigilant) workspace. Some dependencies may reference workspace-level configuration. See individual `Cargo.toml` for details.
 
 ## License
-Proprietary. Copyright (c) 2026 NexVigilant LLC. All Rights Reserved.
+
+**Personal, non-commercial use only.** See [LICENSE](LICENSE) for full terms.
+
+Organizations of any kind must have explicit written permission for use.
+Contact [matthew@nexvigilant.com](mailto:matthew@nexvigilant.com) for licensing.
+
+## Contributing
+
+Contributions are welcome under the following terms:
+
+1. **Fork & PR.** Fork this repository, make your changes, and submit a pull request.
+2. **CLA.** By submitting a pull request, you agree that your contributions become the property of NexVigilant LLC under the same license terms.
+3. **Code quality.** All Rust code must pass `cargo clippy -- -D warnings` and `cargo fmt --check`.
+4. **Tests.** New functionality should include tests. Run `cargo test --lib` before submitting.
+
+For questions or discussion, open an issue or reach out at [matthew@nexvigilant.com](mailto:matthew@nexvigilant.com).
+
+---
+
+Built by [NexVigilant LLC](https://nexvigilant.com) — Pharmacovigilance for NexVigilants.
